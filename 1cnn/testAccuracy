@@ -1,0 +1,49 @@
+
+import glob
+import numpy as np
+from PIL import Image
+import keras
+
+# ---------------------------------
+# PATH TO THE TEST FILES
+path = "/Users/garrettchristian/DocumentsDesktop/uva21/classes/ml/project/"
+# path = "/p/firedetection/dataML/"
+
+fireTest = np.array(glob.glob(path + "Test/Fire/*.jpg", recursive = True))
+print("Fire test shape", np.shape(fireTest))
+nofireTest = np.array(glob.glob(path + "Test/No_Fire/*.jpg", recursive = True))
+print("No fire test shape", np.shape(nofireTest))
+
+labelsFireTest = np.ones(np.shape(fireTest)[0])
+labelsNofireTest = np.zeros(np.shape(nofireTest)[0])
+
+filesTest = np.concatenate((fireTest, nofireTest), axis=0)
+labelsTest = np.concatenate((labelsFireTest, labelsNofireTest), axis=0)
+print("Files Test Shape", np.shape(filesTest))
+print("Labels Test Shape", np.shape(labelsTest))
+
+# ---------------------------------
+# PREPARE FOR MODEL
+
+test_images = np.empty((np.shape(filesTest)[0], 254, 254, 3))
+
+for idx, testImage in enumerate(filesTest):
+    image = Image.open(testImage)
+    imageArray = np.array(image)
+    imageArrayNorm = imageArray.astype('float32') / 255
+    test_images[idx,] = imageArrayNorm
+  
+
+# ---------------------------------
+# LOAD THE MODEL
+  
+modelName = 'fireModel'
+model = keras.models.load_model(modelName)
+print("Info for ", modelName)
+
+# ---------------------------------
+# GET ACCURACY
+
+test_loss, test_acc = model.evaluate(test_images,  labelsTest, verbose=2)
+
+print(test_acc)
