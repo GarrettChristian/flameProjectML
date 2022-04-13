@@ -133,7 +133,7 @@ def main():
     files = np.concatenate((fireTrain, nofireTrain), axis=0)
     # labels = np.concatenate((labelsFire, labelsNofire), axis=0)
     print("Training Files Shape", np.shape(files))
-    print("Training Labels Shape", np.shape(labels))
+    # print("Training Labels Shape", np.shape(labels))
 
     labelsTmp = np.ones(np.shape(files)[0]) 
 
