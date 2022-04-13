@@ -18,9 +18,6 @@
 - Fit parameters
   - Epochs
   - Batch size
-  - Train Validation split
-    - Currenly 0.2 on the training data
-    - Could try and split before they're combined
-    - Could use the training data as the training and test as test
+  - Train Validation split currenly 0.2 on the training data could try other splits
 
 

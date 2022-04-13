@@ -107,9 +107,7 @@ class DataGenerator(keras.utils.Sequence):
 
             # TODO need to do this correctly
             # Store class
-            y[i] = 0
-            if ("/Fire" in ID):
-              y[i] = 1
+            y[i] = self.labels[ID]
 
         return X, keras.utils.to_categorical(y, num_classes=self.n_classes)
 
@@ -130,19 +128,26 @@ def main():
     nofireTrain = np.array(glob.glob(path + "Training/No_Fire/*.jpg", recursive = True))
     print("No fire train shape", np.shape(nofireTrain))
 
-    labelsFire = np.ones(np.shape(fireTrain)[0])
-    labelsNofire = np.zeros(np.shape(nofireTrain)[0])
+    
 
     files = np.concatenate((fireTrain, nofireTrain), axis=0)
-    labels = np.concatenate((labelsFire, labelsNofire), axis=0)
+    # labels = np.concatenate((labelsFire, labelsNofire), axis=0)
     print("Training Files Shape", np.shape(files))
     print("Training Labels Shape", np.shape(labels))
 
-    labels = np.ones(np.shape(files)[0]) 
+    labelsTmp = np.ones(np.shape(files)[0]) 
 
-    train_data, test_data, train_labels, test_labels = train_test_split(
-        files, labels, test_size=0.2, random_state=21
+    train_data, test_data, _, _ = train_test_split(
+        files, labelsTmp, test_size=0.2, random_state=21
     )
+
+    labels = {}
+
+    for fireFile in fireTrain:
+        labels[fireFile] = 1
+    
+    for nofireFile in nofireTrain:
+        labels[nofireFile] = 0
 
     # ---------------------------------
     # SET UP THE DATAGENERATOR
@@ -156,8 +161,8 @@ def main():
 
 
     # Generators
-    training_generator = DataGenerator(train_data, train_labels, **params)
-    validation_generator = DataGenerator(test_data, test_labels, **params)
+    training_generator = DataGenerator(train_data, labels, **params)
+    validation_generator = DataGenerator(test_data, labels, **params)
 
     # ---------------------------------
     # SET UP THE MODEL
