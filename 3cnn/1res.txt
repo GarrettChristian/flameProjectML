@@ -1,0 +1,143 @@
+(sump-venv) [rda2tc@ai02 1cnn]$ python trainModel.py 
+Fire train shape (25018,)
+No fire train shape (14357,)
+Training Files Shape (39375,)
+2022-04-13 18:59:08.703911: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network L
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-04-13 18:59:14.737728: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 
+2022-04-13 18:59:14.759227: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 
+2022-04-13 18:59:14.760796: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 
+2022-04-13 18:59:14.762392: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 
+Model: "sequential"
+_________________________________________________________________
+ Layer (type)                Output Shape              Param #   
+=================================================================
+ conv2d (Conv2D)             (None, 254, 254, 32)      896       
+                                                                 
+ max_pooling2d (MaxPooling2D  (None, 127, 127, 32)     0         
+ )                                                               
+                                                                 
+ conv2d_1 (Conv2D)           (None, 127, 127, 64)      18496     
+                                                                 
+ max_pooling2d_1 (MaxPooling  (None, 63, 63, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_2 (Conv2D)           (None, 63, 63, 64)        36928     
+                                                                 
+ max_pooling2d_2 (MaxPooling  (None, 31, 31, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_3 (Conv2D)           (None, 31, 31, 64)        36928     
+                                                                 
+ max_pooling2d_3 (MaxPooling  (None, 15, 15, 64)       0         
+ 2D)                                                             
+                                                                 
+ conv2d_4 (Conv2D)           (None, 15, 15, 64)        36928     
+                                                                 
+ max_pooling2d_4 (MaxPooling  (None, 7, 7, 64)         0         
+ 2D)                                                             
+                                                                 
+ flatten (Flatten)           (None, 3136)              0         
+                                                                 
+ dense (Dense)               (None, 3136)              9837632   
+                                                                 
+ dense_1 (Dense)             (None, 1568)              4918816   
+                                                                 
+ dense_2 (Dense)             (None, 784)               1230096   
+                                                                 
+ dense_3 (Dense)             (None, 392)               307720    
+                                                                 
+ dense_4 (Dense)             (None, 196)               77028     
+                                                                 
+ dense_5 (Dense)             (None, 98)                19306     
+                                                                 
+ dense_6 (Dense)             (None, 2)                 198       
+                                                                 
+=================================================================
+Total params: 16,520,972
+Trainable params: 16,520,972
+Non-trainable params: 0
+_________________________________________________________________
+None
+Epoch 1/30
+2022-04-13 18:59:20.925124: I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] Loaded cuDNN version 8101
+984/984 [==============================] - 792s 790ms/step - loss: 0.0340 - accuracy: 0.9649 - val_loss: 0.0076 - val_accuracy: 0.9919
+Epoch 2/30
+984/984 [==============================] - 219s 223ms/step - loss: 0.0078 - accuracy: 0.9919 - val_loss: 0.0066 - val_accuracy: 0.9938
+Epoch 3/30
+984/984 [==============================] - 221s 225ms/step - loss: 0.0045 - accuracy: 0.9949 - val_loss: 0.0029 - val_accuracy: 0.9968
+Epoch 4/30
+984/984 [==============================] - 222s 225ms/step - loss: 0.0035 - accuracy: 0.9963 - val_loss: 0.0020 - val_accuracy: 0.9976
+Epoch 5/30
+984/984 [==============================] - 220s 223ms/step - loss: 0.0033 - accuracy: 0.9965 - val_loss: 0.0032 - val_accuracy: 0.9966
+Epoch 6/30
+984/984 [==============================] - 221s 225ms/step - loss: 0.0017 - accuracy: 0.9983 - val_loss: 0.0057 - val_accuracy: 0.9933
+Epoch 7/30
+984/984 [==============================] - 219s 223ms/step - loss: 0.0039 - accuracy: 0.9960 - val_loss: 0.0018 - val_accuracy: 0.9980
+Epoch 8/30
+984/984 [==============================] - 226s 230ms/step - loss: 0.0026 - accuracy: 0.9972 - val_loss: 0.0022 - val_accuracy: 0.9975
+Epoch 9/30
+984/984 [==============================] - 234s 237ms/step - loss: 0.0024 - accuracy: 0.9974 - val_loss: 0.0014 - val_accuracy: 0.9986
+Epoch 10/30
+984/984 [==============================] - 220s 223ms/step - loss: 0.0016 - accuracy: 0.9982 - val_loss: 0.0026 - val_accuracy: 0.9977
+Epoch 11/30
+984/984 [==============================] - 218s 222ms/step - loss: 0.0023 - accuracy: 0.9979 - val_loss: 0.0023 - val_accuracy: 0.9976
+Epoch 12/30
+984/984 [==============================] - 221s 225ms/step - loss: 0.0041 - accuracy: 0.9958 - val_loss: 0.0026 - val_accuracy: 0.9967
+Epoch 13/30
+984/984 [==============================] - 223s 227ms/step - loss: 0.0018 - accuracy: 0.9981 - val_loss: 0.0014 - val_accuracy: 0.9983
+Epoch 14/30
+984/984 [==============================] - 222s 225ms/step - loss: 0.0022 - accuracy: 0.9977 - val_loss: 0.0020 - val_accuracy: 0.9982
+Epoch 15/30
+984/984 [==============================] - 222s 226ms/step - loss: 0.0019 - accuracy: 0.9980 - val_loss: 0.0015 - val_accuracy: 0.9983
+Epoch 16/30
+984/984 [==============================] - 221s 224ms/step - loss: 0.0036 - accuracy: 0.9960 - val_loss: 0.0059 - val_accuracy: 0.9939
+Epoch 17/30
+984/984 [==============================] - 214s 217ms/step - loss: 0.0019 - accuracy: 0.9981 - val_loss: 0.0019 - val_accuracy: 0.9978
+Epoch 18/30
+984/984 [==============================] - 212s 215ms/step - loss: 0.0025 - accuracy: 0.9976 - val_loss: 0.0021 - val_accuracy: 0.9976
+Epoch 19/30
+984/984 [==============================] - 215s 218ms/step - loss: 0.0023 - accuracy: 0.9980 - val_loss: 0.0018 - val_accuracy: 0.9980
+Epoch 20/30
+984/984 [==============================] - 213s 216ms/step - loss: 0.0012 - accuracy: 0.9986 - val_loss: 0.0019 - val_accuracy: 0.9978
+Epoch 21/30
+984/984 [==============================] - 221s 224ms/step - loss: 0.0027 - accuracy: 0.9972 - val_loss: 0.0017 - val_accuracy: 0.9980
+Epoch 22/30
+984/984 [==============================] - 223s 226ms/step - loss: 0.0014 - accuracy: 0.9985 - val_loss: 0.0026 - val_accuracy: 0.9973
+Epoch 23/30
+984/984 [==============================] - 222s 225ms/step - loss: 0.0014 - accuracy: 0.9985 - val_loss: 0.0013 - val_accuracy: 0.9986
+Epoch 24/30
+984/984 [==============================] - 213s 216ms/step - loss: 0.0014 - accuracy: 0.9984 - val_loss: 7.9716e-04 - val_accuracy: 0.9991
+Epoch 25/30
+984/984 [==============================] - 214s 217ms/step - loss: 0.0015 - accuracy: 0.9986 - val_loss: 8.4740e-04 - val_accuracy: 0.9992
+Epoch 26/30
+984/984 [==============================] - 219s 223ms/step - loss: 0.0023 - accuracy: 0.9977 - val_loss: 0.0013 - val_accuracy: 0.9987
+Epoch 27/30
+984/984 [==============================] - 219s 223ms/step - loss: 0.0045 - accuracy: 0.9957 - val_loss: 0.0012 - val_accuracy: 0.9989
+Epoch 28/30
+984/984 [==============================] - 219s 223ms/step - loss: 0.0025 - accuracy: 0.9974 - val_loss: 0.0025 - val_accuracy: 0.9975
+Epoch 29/30
+984/984 [==============================] - 221s 225ms/step - loss: 0.0012 - accuracy: 0.9987 - val_loss: 8.8024e-04 - val_accuracy: 0.9991
+Epoch 30/30
+984/984 [==============================] - 211s 215ms/step - loss: 8.0217e-04 - accuracy: 0.9992 - val_loss: 9.9378e-04 - val_accuracy: 0.9990
+2022-04-13 20:58:34.356633: W tensorflow/python/util/util.cc:368] Sets are not currently considered sequences, but this may change in the future, so c
+(sump-venv) [rda2tc@ai02 1cnn]$ ll
+total 19
+drwx------+ 4 rda2tc ugrad    6 Apr 13 20:58 fireModel
+-rw-------. 1 rda2tc ugrad 1258 Apr 13 18:46 testAccuracy.py
+-rw-------. 1 rda2tc ugrad 5891 Apr 13 18:58 trainModel.py
+(sump-venv) [rda2tc@ai02 1cnn]$ vim testAccuracy.py 
+(sump-venv) [rda2tc@ai02 1cnn]$ python testAccuracy.py 
+Fire test shape (5137,)
+No fire test shape (3480,)
+Files Test Shape (8617,)
+2022-04-13 21:12:40.675371: I tensorflow/core/platform/cpu_feature_guard.cc:151] This TensorFlow binary is optimized with oneAPI Deep Neural Network L
+To enable them in other operations, rebuild TensorFlow with the appropriate compiler flags.
+2022-04-13 21:12:46.157620: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:0 with 
+2022-04-13 21:12:46.196984: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:1 with 
+2022-04-13 21:12:46.198451: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:2 with 
+2022-04-13 21:12:46.199907: I tensorflow/core/common_runtime/gpu/gpu_device.cc:1525] Created device /job:localhost/replica:0/task:0/device:GPU:3 with 
+Info for  fireModel
+2022-04-13 21:12:51.485904: I tensorflow/stream_executor/cuda/cuda_dnn.cc:368] Loaded cuDNN version 8101
+269/269 - 189s - loss: 0.4063 - accuracy: 0.5838 - 189s/epoch - 702ms/step
+0.5837593078613281
