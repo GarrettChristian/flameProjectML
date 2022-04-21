@@ -27,24 +27,31 @@ def getModel():
 
     # Convolutional Layers
     model.add(layers.Conv2D(filters=8, kernel_size=5, strides=1, activation='relu', padding='same')) 
-    model.add(layers.BatchNormalization())
-    model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
-
-    model.add(layers.Conv2D(filters=16, kernel_size=3, strides=1, activation='relu', padding='same')) 
-    model.add(layers.BatchNormalization())
-    model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
-
-    model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
-    model.add(layers.BatchNormalization())
-    model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
-
-    #model.add(layers.Conv2D(filters=64, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
-    #model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Dropout(0.2))
+
+
+    model.add(layers.Conv2D(filters=16, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Dropout(0.2))
+
+
+    model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Dropout(0.2))
+
+
+    model.add(layers.Conv2D(filters=64, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+    model.add(layers.MaxPooling2D((2, 2)))
+    model.add(layers.Dropout(0.2))
 
     #model.add(layers.Conv2D(filters=64, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
@@ -58,8 +65,10 @@ def getModel():
 
     # Dense Layers
     model.add(layers.Flatten())
-    model.add(layers.Dense(30752, activation='relu'))
-    model.add(layers.Dropout(0.2))
+    #model.add(layers.Dense(63504, activation='relu'))
+    #model.add(layers.Dropout(0.2))
+    #model.add(layers.Dense(30752, activation='relu'))
+    #model.add(layers.Dropout(0.2))
     model.add(layers.Dense(14400, activation='relu'))
     model.add(layers.Dropout(0.2))
     model.add(layers.Dense(8192, activation='relu'))
@@ -214,8 +223,8 @@ def main():
     # ---------------------------------
     # TRAIN THE MODEL
 
-    #history = model.fit(training_generator, validation_data=validation_generator, epochs=20)
-    history = model.fit(training_generator, validation_data=validation_generator, epochs=3, use_multiprocessing=True)
+    history = model.fit(training_generator, validation_data=validation_generator, epochs=30)
+    #history = model.fit(training_generator, validation_data=validation_generator, epochs=3, use_multiprocessing=True)
 
     # ---------------------------------
     # SAVE THE MODEL

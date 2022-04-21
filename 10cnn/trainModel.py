@@ -7,10 +7,12 @@ import numpy as np
 
 from PIL import Image
 from PIL import ImageOps
+from PIL import ImageEnhance
 
 from sklearn.model_selection import train_test_split
 
 from tensorflow import keras
+import random
 
 import glob
 
@@ -26,45 +28,63 @@ def getModel():
     model.add(layers.Input(shape=(254, 254, 3)))
 
     # Convolutional Layers
-    model.add(layers.Conv2D(filters=64, kernel_size=5, strides=1, activation='relu', padding='same')) 
-    #model.add(layers.BatchNormalization())
+    model.add(layers.Conv2D(filters=8, kernel_size=3, strides=2, activation='relu', padding='same')) 
+    model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.Dropout(0.2))
+
+    for size in [8]:
+        model.add(layers.SeparableConv2D(filters=size, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
+        model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+    #model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.Dropout(0.2))
+        
+        model.add(layers.SeparableConv2D(filters=size, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
+        model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+        model.add(layers.MaxPooling2D(3, strides=2))
+    #model.add(layers.Dropout(0.2))
+        
+    
+    model.add(layers.SeparableConv2D(filters=8, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    model.add(layers.BatchNormalization())
+    #model.add(layers.LeakyReLU(alpha=0.2))
+    #model.add(layers.MaxPooling2D(3, strides=2))
     #model.add(layers.Dropout(0.2))
 
 
-    model.add(layers.Conv2D(filters=32, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=16, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.MaxPooling2D((2, 2)))
     #model.add(layers.Dropout(0.2))
 
 
-    model.add(layers.Conv2D(filters=16, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=8, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
-    #model.add(layers.Dropout(0.2))
-
-
-    model.add(layers.Conv2D(filters=8, kernel_size=3, strides=1, activation='relu', padding='same')) 
-    #model.add(layers.BatchNormalization())
-    #model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.MaxPooling2D((2, 2)))
    # model.add(layers.Dropout(0.2))
 
-    model.add(layers.Conv2D(filters=8, kernel_size=3, strides=1, activation='relu', padding='same')) 
+    #model.add(layers.Conv2D(filters=8, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
-    model.add(layers.MaxPooling2D((2, 2)))
+    #model.add(layers.MaxPooling2D((2, 2)))
 
     #model.add(layers.Conv2D(filters=128, kernel_size=3, strides=1, activation='relu', padding='same')) 
     #model.add(layers.BatchNormalization())
     #model.add(layers.LeakyReLU(alpha=0.2))
     #model.add(layers.MaxPooling2D((2, 2)))
 
+    model.add(layers.GlobalAveragePooling2D())
+
     # Dense Layers
-    model.add(layers.Flatten())
+    #model.add(layers.Flatten())
     #model.add(layers.Dense(63504, activation='relu'))
     #model.add(layers.Dropout(0.2))
     #model.add(layers.Dense(30752, activation='relu'))
@@ -81,10 +101,10 @@ def getModel():
     #model.add(layers.Dropout(0.2))
     #model.add(layers.Dense(512, activation='relu'))
     #model.add(layers.Dropout(0.2))
-    model.add(layers.Dense(256, activation='relu'))
+    #model.add(layers.Dense(256, activation='relu'))
     #model.add(layers.Dropout(0.2))
     #model.add(layers.Dense(128, activation='relu'))
-    #model.add(layers.Dropout(0.2))
+    model.add(layers.Dropout(0.5))
     #model.add(layers.Dense(64, activation='relu'))
 
     # Output
@@ -143,11 +163,37 @@ class DataGenerator(keras.utils.Sequence):
             image = Image.open(ID)
             # imageGrey = ImageOps.grayscale(image)
             # imageGreyArray = np.array(imageGrey)
+
+
+            
+            #if (random.random() % 10 == 0):
+            #    image = image.transpose(PIL.Image.FLIP_LEFT_RIGHT)
+
+            #if (random.random() % 10 == 0):
+            #    image = image.rotate(random.random() % 360)
+
+            #if (random.random() % 10 == 0):
+            #    enhancer = ImageEnhance.Brightness(image)
+            #    factor = 1.5
+            #    if (random.random() % 2 == 0): 
+            #        factor = 0.5
+            #    image = enhancer.enhance(factor)
+            
+            #if (random.random() % 10 == 0):
+            #    enhancer = ImageEnhance.Contrast(image)
+            #    factor = 1.5
+            #    if (random.random() % 2 == 0): 
+            #        factor = 0.5
+            #    image = enhancer.enhance(factor)
+
+
             imageArray = np.array(image)
             imageArrayNorm = imageArray.astype('float32') / 255
+
+                
+
             X[i,] = imageArrayNorm
 
-            # TODO need to do this correctly
             # Store class
             y[i] = self.labels[ID]
 
@@ -198,7 +244,7 @@ def main():
 
     # Parameters
     params = {'dim': (254, 254),
-            'batch_size': 128,
+            'batch_size': 64,
             'n_classes': 2,
             'n_channels': 3,
             'shuffle': True}
@@ -225,7 +271,7 @@ def main():
     # TRAIN THE MODEL
 
     #history = model.fit(training_generator, validation_data=validation_generator, epochs=10)
-    history = model.fit(training_generator, validation_data=validation_generator, epochs=5, use_multiprocessing=True)
+    history = model.fit(training_generator, validation_data=validation_generator, epochs=3, use_multiprocessing=True)
 
     # ---------------------------------
     # SAVE THE MODEL
