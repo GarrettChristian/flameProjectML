@@ -228,12 +228,12 @@ class DataGenerator(keras.utils.Sequence):
 
 
             imageArray = np.array(image)
-            # imageArrayNorm = imageArray.astype('float32') / 255
+            imageArrayNorm = imageArray.astype('float32') / 255
 
                 
 
-            # X[i,] = imageArrayNorm
-            X[i,] = imageArray
+            X[i,] = imageArrayNorm
+            #X[i,] = imageArray
 
             # Store class
             y[i] = self.labels[ID]
@@ -312,7 +312,7 @@ def main():
     # TRAIN THE MODEL
 
     #history = model.fit(training_generator, validation_data=validation_generator, epochs=10)
-    history = model.fit(training_generator, validation_data=validation_generator, epochs=40, use_multiprocessing=True)
+    history = model.fit(training_generator, validation_data=validation_generator, epochs=40, use_multiprocessing=True, workers=6)
 
     # ---------------------------------
     # SAVE THE MODEL
