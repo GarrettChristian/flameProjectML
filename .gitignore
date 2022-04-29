@@ -131,7 +131,7 @@ dmypy.json
 
 # New additions 
 *Model/
-.h5
+*.h5
 
 
 
