@@ -14,7 +14,7 @@ path = "/p/firedetection/dataML/"
 
 test_data_dir = path + 'Test/'
 
-batch_size = 32
+batch_size = 256
 img_height = 254
 img_width = 254
 
@@ -34,14 +34,15 @@ test_generator = test_datagen.flow_from_directory(
 # ---------------------------------
 # LOAD THE MODEL
   
-modelName = 'save_at_23.h5'
-model = keras.models.load_model(modelName)
-print("Info for ", modelName)
+for i in range(1, 41):
+        modelName = 'save_at_' + str(i) + '.h5'
+        model = keras.models.load_model(modelName)
+        # print("Info for ", modelName)
 
-# ---------------------------------
-# GET ACCURACY
+        # ---------------------------------
+        # GET ACCURACY
 
-test_loss, test_acc = model.evaluate(test_generator, verbose=2)
+        test_loss, test_acc = model.evaluate(test_generator, verbose=2)
 
 
-print(test_acc)
+        print("accuracy for ", i, test_acc)
