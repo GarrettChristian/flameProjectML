@@ -123,10 +123,10 @@ def getModel():
     )
 
     inputs = keras.Input(shape=(254, 254, 3))
-    x = data_augmentation(inputs)  # 1) First option
-    # x = inputs  # 2) Second option
+    #x = data_augmentation(inputs)  # 1) First option
+    x = inputs  # 2) Second option
 
-    x = layers.experimental.preprocessing.Rescaling(1.0 / 255)(x)
+    #x = layers.experimental.preprocessing.Rescaling(1.0 / 255)(x)
     # x = layers.Conv2D(32, 3, strides=2, padding="same")(x)
     x = layers.Conv2D(8, 3, strides=2, padding="same")(x)
     x = layers.BatchNormalization()(x)
@@ -235,12 +235,12 @@ class DataGenerator(keras.utils.Sequence):
 
 
             imageArray = np.array(image)
-            # imageArrayNorm = imageArray.astype('float32') / 255
+            imageArrayNorm = imageArray.astype('float32') / 255
 
                 
 
-            # X[i,] = imageArrayNorm
-            X[i,] = imageArray
+            X[i,] = imageArrayNorm
+            #X[i,] = imageArray
 
             # Store class
             y[i] = self.labels[ID]
@@ -319,7 +319,7 @@ def main():
     # TRAIN THE MODEL
 
     #history = model.fit(training_generator, validation_data=validation_generator, epochs=10)
-    history = model.fit(training_generator, validation_data=validation_generator, epochs=40, use_multiprocessing=True)
+    history = model.fit(training_generator, validation_data=validation_generator, epochs=40, use_multiprocessing=True, workers=6)
 
     # ---------------------------------
     # SAVE THE MODEL

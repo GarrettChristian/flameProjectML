@@ -206,26 +206,6 @@ class DataGenerator(keras.utils.Sequence):
 
 
             
-            #if (random.random() % 10 == 0):
-            #    image = image.transpose(PIL.Image.FLIP_LEFT_RIGHT)
-
-            #if (random.random() % 10 == 0):
-            #    image = image.rotate(random.random() % 360)
-
-            #if (random.random() % 10 == 0):
-            #    enhancer = ImageEnhance.Brightness(image)
-            #    factor = 1.5
-            #    if (random.random() % 2 == 0): 
-            #        factor = 0.5
-            #    image = enhancer.enhance(factor)
-            
-            #if (random.random() % 10 == 0):
-            #    enhancer = ImageEnhance.Contrast(image)
-            #    factor = 1.5
-            #    if (random.random() % 2 == 0): 
-            #        factor = 0.5
-            #    image = enhancer.enhance(factor)
-
 
             imageArray = np.array(image)
             imageArrayNorm = imageArray.astype('float32') / 255
@@ -233,7 +213,6 @@ class DataGenerator(keras.utils.Sequence):
                 
 
             X[i,] = imageArrayNorm
-            #X[i,] = imageArray
 
             # Store class
             y[i] = self.labels[ID]
